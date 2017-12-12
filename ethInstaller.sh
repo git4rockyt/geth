@@ -97,7 +97,7 @@ fi
 chmod 755 initdb.sh
 
 LOG "Executing initdb.sh script"
-./initdb.sh
+./initdb.sh $LOG_FILE
 
 
 LOG "Downloading first_block_mining.sh script"
@@ -109,7 +109,7 @@ fi
 chmod 755 first_block_mining.sh
 
 LOG "Eexecuting first_block_mining.sh script"
-./first_block_mining.sh
+./first_block_mining.sh $LOG_FILE
 
 LOG "Downloading remdb.sh script"
 wget -O remdb.sh ${GIT_LOCATION}remdb.sh
@@ -120,8 +120,12 @@ fi
 chmod 755 remdb.sh
 
 LOG "Executing remdb.sh script"
-./remdb.sh
+./remdb.sh $LOG_FILE
 
+
+LOG "Killing all existing geth processes"
+KILLALL -9 geth
+sleep 10
 
 LOG "Downloading reinitdb.sh script"
 wget -O reinitdb.sh ${GIT_LOCATION}reinitdb.sh
@@ -132,7 +136,7 @@ fi
 chmod 755 reinitdb.sh
 
 LOG "Running reinitdb.sh script"
-./reinitdb.sh
+./reinitdb.sh $LOG_FILE
 
 
 
