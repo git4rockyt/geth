@@ -99,7 +99,7 @@ if [ $? -ne 0 ]; then
 fi
 
 LOG "Setting up Chaindata"
-sudo mkdir /home/ubuntu/chaindata
+mkdir /home/ubuntu/chaindata
 if [ $? -ne 0 ]; then 
 	ELOG "Error Cannot Contnue making directory for chaindata"
 	exit -1
@@ -140,7 +140,7 @@ LOG "Executing remdb.sh script"
 
 
 LOG "Killing all existing geth processes"
-killall -9 geth
+sudo killall -9 geth
 sleep 10
 
 LOG "Downloading reinitdb.sh script"
