@@ -20,7 +20,7 @@ function ELOG ( ) {
 
 
 LOG "Setting up geth with CustomGenesis.json file"
-sudo geth --identity "MyTestNetNode" --nodiscover --networkid 1999 --datadir ./chaindata  init ./CustomGenesis.json
+geth --identity "MyTestNetNode" --nodiscover --networkid 1999 --datadir ./chaindata  init ./CustomGenesis.json
 if [ $? -ne 0 ]; then 
 	ELOG "Cannot Contnue with geth initialization"
 	exit -1
@@ -28,7 +28,7 @@ fi
 
 
 LOG "Setting first account in the chain"
-sudo geth --password /home/ubuntu/password.txt account new --datadir /home/ubuntu/chaindata > /home/ubuntu/acctaddr.txt
+geth --password /home/ubuntu/password.txt account new --datadir /home/ubuntu/chaindata > /home/ubuntu/acctaddr.txt
 if [ $? -ne 0 ]; then 
 	ELOG "Cannot Contnue with setting account"
 	exit -1

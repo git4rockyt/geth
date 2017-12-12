@@ -19,7 +19,7 @@ function ELOG ( ) {
 }
 
 LOG "Removing the old geth DB"
-sudo geth removedb --datadir /home/ubuntu/chaindata << EOF
+geth removedb --datadir /home/ubuntu/chaindata << EOF
 y
 y
 EOF

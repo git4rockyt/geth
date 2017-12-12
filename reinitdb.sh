@@ -19,13 +19,13 @@ function ELOG ( ) {
 }
 
 LOG "Running reinit of geth"
-sudo geth --identity "MyTestNetNode" --nodiscover --networkid 1999 --datadir /home/ubuntu/chaindata  init /home/ubuntu/CustomGenesis.json
+geth --identity "MyTestNetNode" --nodiscover --networkid 1999 --datadir /home/ubuntu/chaindata  init /home/ubuntu/CustomGenesis.json
 if [ $? -ne 0 ]; then 
 	ELOG "Cannot Contnue with reinit of geth"
 fi
 
 LOG "Starting geth with rpc an dbind addr of 0.0.0.0"
-sudo geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi eth,web3,personal >> gethconsole.log 2>&1 &
+geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi eth,web3,personal >> gethconsole.log 2>&1 &
 if [ $? -ne 0 ]; then 
 	ELOG "Cannot start running geth"
 fi
