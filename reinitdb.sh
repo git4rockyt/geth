@@ -25,7 +25,7 @@ if [ $? -ne 0 ]; then
 fi
 
 LOG "Starting geth with rpc an dbind addr of 0.0.0.0"
-sudo geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi eth,web3,personal &
+sudo geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi eth,web3,personal >> gethconsole.log 2>&1 &
 if [ $? -ne 0 ]; then 
 	ELOG "Cannot start running geth"
 fi
