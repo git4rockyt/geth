@@ -140,7 +140,7 @@ LOG "Executing remdb.sh script"
 
 
 LOG "Killing all existing geth processes"
-KILLALL -9 geth
+killall -9 geth
 sleep 10
 
 LOG "Downloading reinitdb.sh script"
