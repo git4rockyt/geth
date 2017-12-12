@@ -22,10 +22,10 @@ a="first"
 while [ "$a" == "first" ]; do 
 	echo "1" > /home/ubuntu/test1.txt; 
 	sleep 10; 
-	a="$(awk -F\"{|}\" '{print $2}' /home/ubuntu/acctaddr.txt)"; 
+	a=$(awk -F"{|}" '{print $2}' /home/ubuntu/acctaddr.txt)"; 
 	echo "$a" > /home/ubuntu/addr.txt; 
 done
-f [ $? -ne 0 ]; then 
+if [ $? -ne 0 ]; then 
 	echo "Error Cannot Contnue"
 fi
 
