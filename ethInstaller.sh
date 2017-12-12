@@ -83,6 +83,14 @@ fi
 
 LOG "Setting up Etherum software now"
 
+LOG "Downloading password.txt file"
+wget -O /home/ubuntu/CustomGenesis.json ${GIT_LOCATION}password.txt
+if [ $? -ne 0 ]; then 
+	ELOG "Error Cannot download password.txt file"
+	exit -1
+fi
+
+
 LOG "Downloading CustomGenesis.json file"
 wget -O /home/ubuntu/CustomGenesis.json ${GIT_LOCATION}CustomGenesis.json
 if [ $? -ne 0 ]; then 

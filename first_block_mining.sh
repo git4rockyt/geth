@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE = $1
+LOG_FILE=$1
 
 if [ -z $LOG_FILE ]; then 
         LOG_FILE="ethereum-install-`date +%Y-%b-%d-%H-%M-%S`.log"
