@@ -1,93 +1,137 @@
 export GIT_LOCATION="https://raw.githubusercontent.com/git4rockyt/geth/master/"
 
-echo "Installing base packages"
+LOG_FILE="ethereum-install-`date +%Y-%b-%d-%H-%M-%S`.log"
+
+function LOG ( ) {
+
+	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> $LOG_FILE
+
+}
+
+function ELOG ( ) {
+
+	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> $LOG_FILE
+
+}
+
+
+LOG "Running apt-get update"
 
 sudo apt-get update
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Cannot Contnue with apt-get update"
+	exit -1
 fi
 
+LOG "Running apt-get upgrade"
 sudo apt-get upgrade -y
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Cannot Contnue with apt-get upgrade"
+	exit -1
 fi
 
+LOG "Installing Expect package"
 sudo apt install expect -y
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Cannot Contnue with installing Expect package"
+	exit -1
 fi
 
+LOG "Installing software-properties-common package"
 sudo apt-get install software-properties-common
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Cannot Contnue with installing software-properties-common"
+	exit -1
 fi
 
+LOG "Adding repo for ethereum"
 sudo add-apt-repository -y ppa:ethereum/ethereum
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot Contnue with adding repo for ethereum"
+	exit -1
 fi
 
+LOG "Running apt-get update"
 sudo apt-get update
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot Contnue with apt-get update"
+	exit -1
 fi
 
 
-echo "Installing Ethereum Software"
+LOG "Running apt-get install ethereum"
 sudo apt-get install ethereum -y
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot Contnue with installing ethereum"
+	exit -1
 fi
 
-echo "Setting up Apache Test Page"
+LOG "Setting up Apache Test Page"
 wget -O /var/www/html/test.html ${GIT_LOCATION}test.html
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot Contnue with setting Apache page"
+	exit -1
 fi
 
-echo "Setting up Etherum"
+LOG "Setting up Etherum software now"
 
-echo "Downloading Genesis json"
+LOG "Downloading CustomGenesis.json file"
 wget -O /home/ubuntu/CustomGenesis.json ${GIT_LOCATION}CustomGenesis.json
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot download CustomGenesis.json file"
+	exit -1
 fi
 
-echo "Setting up Chaindata"
+LOG "Setting up Chaindata"
 sudo mkdir /home/ubuntu/chaindata
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot Contnue making directory for chaindata"
+	exit -1
 fi
+
+LOG "Downloading initdb.sh script"
 wget -O initdb.sh ${GIT_LOCATION}initdb.sh
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot download initdb.sh script"
 fi
 chmod 755 initdb.sh
+
+LOG "Executing initdb.sh script"
 ./initdb.sh
 
 
+LOG "Downloading first_block_mining.sh script"
 wget -O first_block_mining.sh ${GIT_LOCATION}first_block_mining.sh
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot download first_block_mining.sh script"
+	exit -1
 fi
 chmod 755 first_block_mining.sh
 
+LOG "Eexecuting first_block_mining.sh script"
 ./first_block_mining.sh
 
-
+LOG "Downloading remdb.sh script"
 wget -O remdb.sh ${GIT_LOCATION}remdb.sh
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot download remdb.sh script"
+	exit -1
 fi
-
 chmod 755 remdb.sh
+
+LOG "Executing remdb.sh script"
 ./remdb.sh
 
+
+LOG "Downloading reinitdb.sh script"
 wget -O reinitdb.sh ${GIT_LOCATION}reinitdb.sh
 if [ $? -ne 0 ]; then 
-	echo "Error Cannot Contnue"
+	ELOG "Error Cannot download reinitdb.sh script"
+	exit -1
 fi
 chmod 755 reinitdb.sh
+
+LOG "Running reinitdb.sh script"
 ./reinitdb.sh
 
 
