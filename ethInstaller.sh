@@ -66,8 +66,16 @@ if [ $? -ne 0 ]; then
 	exit -1
 fi
 
+LOG "Running apt-get install apache2"
+sudo apt-get install apache2 -y
+if [ $? -ne 0 ]; then 
+	ELOG "Error Cannot Contnue with installing apache2"
+	exit -1
+fi
+
+
 LOG "Setting up Apache Test Page"
-wget -O /var/www/html/test.html ${GIT_LOCATION}test.html
+sudo wget -O /var/www/html/test.html ${GIT_LOCATION}test.html
 if [ $? -ne 0 ]; then 
 	ELOG "Error Cannot Contnue with setting Apache page"
 	exit -1
