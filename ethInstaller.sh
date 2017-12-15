@@ -4,13 +4,13 @@ LOG_FILE="ethereum-install-`date +%Y-%b-%d-%H-%M-%S`.log"
 
 function LOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
 function ELOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
@@ -92,37 +92,37 @@ if [ $? -ne 0 ]; then
 fi
 
 LOG "Downloading initdb.sh script"
-wget -O initdb.sh ${GIT_LOCATION}initdb.sh
+wget -O /home/ubuntu/initdb.sh ${GIT_LOCATION}initdb.sh
 if [ $? -ne 0 ]; then
 	ELOG "Error Cannot download initdb.sh script"
 fi
-chmod 755 initdb.sh
+chmod 755 /home/ubuntu/initdb.sh
 
 LOG "Executing initdb.sh script"
-./initdb.sh $LOG_FILE
+/home/ubuntu/initdb.sh $LOG_FILE
 
 
 LOG "Downloading first_block_mining.sh script"
-wget -O first_block_mining.sh ${GIT_LOCATION}first_block_mining.sh
+wget -O /home/ubuntu/first_block_mining.sh ${GIT_LOCATION}first_block_mining.sh
 if [ $? -ne 0 ]; then
 	ELOG "Error Cannot download first_block_mining.sh script"
 	exit -1
 fi
-chmod 755 first_block_mining.sh
+chmod 755 /home/ubuntu/first_block_mining.sh
 
 LOG "Eexecuting first_block_mining.sh script"
-./first_block_mining.sh $LOG_FILE
+/home/ubuntu/first_block_mining.sh $LOG_FILE
 
 LOG "Downloading remdb.sh script"
-wget -O remdb.sh ${GIT_LOCATION}remdb.sh
+wget -O /home/ubuntu/remdb.sh ${GIT_LOCATION}remdb.sh
 if [ $? -ne 0 ]; then
 	ELOG "Error Cannot download remdb.sh script"
 	exit -1
 fi
-chmod 755 remdb.sh
+chmod 755 /home/ubuntu/remdb.sh
 
 LOG "Executing remdb.sh script"
-./remdb.sh $LOG_FILE
+/home/ubuntu/remdb.sh $LOG_FILE
 
 
 LOG "Killing all existing geth processes"
@@ -130,12 +130,12 @@ sudo killall -9 geth
 sleep 10
 
 LOG "Downloading reinitdb.sh script"
-wget -O reinitdb.sh ${GIT_LOCATION}reinitdb.sh
+wget -O /home/ubuntu/reinitdb.sh ${GIT_LOCATION}reinitdb.sh
 if [ $? -ne 0 ]; then
 	ELOG "Error Cannot download reinitdb.sh script"
 	exit -1
 fi
-chmod 755 reinitdb.sh
+chmod 755 /home/ubuntu/reinitdb.sh
 
 LOG "Running reinitdb.sh script"
-./reinitdb.sh $LOG_FILE
+/home/ubuntu/reinitdb.sh $LOG_FILE

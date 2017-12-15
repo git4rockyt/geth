@@ -8,13 +8,13 @@ fi
 
 function LOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
 function ELOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
@@ -25,7 +25,7 @@ if [ $? -ne 0 ]; then
 fi
 
 LOG "Starting geth with rpc an dbind addr of 0.0.0.0"
-geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi db,eth,net,web3,personal >> gethconsole.log 2>&1 &
+geth --identity "MyTestNetNode" --datadir /home/ubuntu/chaindata --nodiscover --networkid 1999 --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi db,eth,net,web3,personal >> /home/ubuntu/gethconsole.log 2>&1 &
 if [ $? -ne 0 ]; then
 	ELOG "Cannot start running geth"
 fi

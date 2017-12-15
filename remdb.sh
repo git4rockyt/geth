@@ -2,19 +2,19 @@
 
 LOG_FILE=$1
 
-if [ -z $LOG_FILE ]; then 
+if [ -z $LOG_FILE ]; then
 	LOG_FILE="ethereum-install-`date +%Y-%b-%d-%H-%M-%S`.log"
 fi
 
 function LOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
 function ELOG ( ) {
 
-	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> $LOG_FILE
+	echo "`date +%Y-%b-%d-%H-%M-%S` : ERROR: $1" >> /home/ubuntu/$LOG_FILE
 
 }
 
@@ -24,7 +24,6 @@ y
 y
 EOF
 
-if [ $? -ne 0 ]; then 
+if [ $? -ne 0 ]; then
 	ELOG "Cannot remove old DB"
 fi
-
